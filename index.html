@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大凉国输入法</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            text-align: center;
+            width: 80%;
+        }
+        input {
+            font-size: 24px;
+            padding: 10px;
+            width: 80%;
+        }
+        .keyboard {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .key {
+            font-size: 24px;
+            padding: 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .key:hover {
+            background-color: #0056b3;
+        }
+        .key:active {
+            background-color: #003366;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #005f7f;
+        }
+        .feedback {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        .action-btns {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>大凉国输入法</h1>
+        <input type="text" id="inputField" placeholder="输入文字..." readonly />
+        
+        <!-- 拉丁字母键盘 -->
+        <div class="keyboard" id="latinKeyboard">
+            <!-- 拉丁字母的键盘 -->
+            <button class="key" data-char="a">a</button>
+            <button class="key" data-char="b">b</button>
+            <button class="key" data-char="c">c</button>
+            <button class="key" data-char="d">d</button>
+            <button class="key" data-char="e">e</button>
+            <button class="key" data-char="f">f</button>
+            <button class="key" data-char="g">g</button>
+            <button class="key" data-char="h">h</button>
+            <button class="key" data-char="i">i</button>
+            <button class="key" data-char="j">j</button>
+            <!-- 继续添加其余字母 -->
+        </div>
+        
+        <div class="action-btns">
+            <button id="toggleCaseBtn">切换大小写</button>
+            <button id="deleteBtn">删除</button>
+        </div>
+
+        <div class="feedback" id="feedback"></div>
+
+        <!-- 绘制字符功能 -->
+        <div class="action-btns">
+            <button id="importBtn">导入字符</button>
+            <button id="exportBtn">导出字符</button>
+            <button id="saveBtn">保存字符</button>
+            <button id="renderBtn">渲染字符</button>
+        </div>
+    </div>
+
+    <script>
+        // 字母大小写切换
+        let isUpperCase = false;
+        document.getElementById("toggleCaseBtn").addEventListener("click", function() {
+            isUpperCase = !isUpperCase;
+            const keys = document.querySelectorAll('.key');
+            keys.forEach(key => {
+                let char = key.getAttribute('data-char');
+                key.textContent = isUpperCase ? char.toUpperCase() : char.toLowerCase();
+            });
+        });
+
+        // 删除功能
+        document.getElementById("deleteBtn").addEventListener("click", function() {
+            const inputField = document.getElementById("inputField");
+            inputField.value = inputField.value.slice(0, -1);  // 删除最后一个字符
+        });
+
+        // 字母键盘输入
+        document.querySelectorAll('.key').forEach(button => {
+            button.addEventListener("click", () => {
+                const inputField = document.getElementById("inputField");
+                inputField.value += button.getAttribute('data-char');
+            });
+        });
+
+        // 导入功能
+        document.getElementById("importBtn").addEventListener("click", () => {
+            alert("导入字符功能");
+            // 可以扩展为读取文件、或加载外部数据
+        });
+
+        // 导出功能
+        document.getElementById("exportBtn").addEventListener("click", () => {
+            alert("导出字符功能");
+            // 可以扩展为保存字符数据到本地文件或服务器
+        });
+
+        // 保存功能
+        document.getElementById("saveBtn").addEventListener("click", () => {
+            alert("保存字符功能");
+            // 保存当前输入的字符或已绘制的字符
+        });
+
+        // 渲染功能
+        document.getElementById("renderBtn").addEventListener("click", () => {
+            alert("渲染字符功能");
+            // 渲染输入的字符，或者用作图形化绘制
+        });
+    </script>
+</body>
+</html>
